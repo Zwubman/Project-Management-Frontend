@@ -78,7 +78,7 @@ const Signup = () => {
           >
             SignUp
           </button>
-          <Link to="/signin" className="text-gray-400 hover:text-gray-200">
+          <Link to="/" className="text-gray-400 hover:text-gray-200">
             Already have an account? Login here
           </Link>
         </div>
