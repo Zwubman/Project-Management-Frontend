@@ -241,7 +241,7 @@ const Home = () => {
           className="bg-red-600 px-2 h-10 rounded-md"
           onClick={() => {
             Cookies.remove("authToken");
-            window.location.href = "/signin"; // Adjust as needed
+            window.location.href = "/"; // Adjust as needed
           }}
         >
           Logout
