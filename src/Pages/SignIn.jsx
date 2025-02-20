@@ -30,7 +30,7 @@ const Login = () => {
           secure: true,
           sameSite: "Strict",
         });
-        history("/"); // Redirect to the home page after successful login
+        history("/home"); // Redirect to the home page after successful login
       } catch (error) {
         console.error("Login failed:", error);
         alert("Login failed. Please check your credentials.");
