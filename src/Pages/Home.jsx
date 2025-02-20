@@ -167,7 +167,7 @@ const Home = () => {
           title: newTask.title,
           deadline: newTask.deadline,
           assignedTo: newTask.assignedMember,
-          projectId: selectedProject._id, // Pass the project ID
+          projectId: selectedProject._id,
         },
         {
           headers: {
@@ -177,25 +177,16 @@ const Home = () => {
         }
       );
 
-      const task = response.data.task; // Assuming backend returns the created task
+      const task = response.data.task;
       console.log(task);
-      // // Update projects state
-      // setProjects((prevProjects) =>
-      //   prevProjects.map((proj) => {
-      //     console.log("proj: ", proj);
-      //     proj._id === selectedProject._id
-      //       ? { ...proj, tasks: [...proj.tasks, newTask] }
-      //       : proj;
-      //   })
-      // );
 
-      // If the current active project matches, update it to refresh the task list
-      // if (activeProject?._id === selectedProject._id) {
-      //   setActiveProject({
-      //     ...selectedProject,
-      //     tasks: [...selectedProject.tasks, newTask],
-      //   });
-      // }
+      setNewTask({
+        title: task.title,
+        deadline: task.deadline,
+        assignedMember: task.assignedTo,
+      });
+
+      setTaskData((prevTasks) => [...prevTasks, task]);
 
       closeTaskModal();
     } catch (error) {
@@ -268,8 +259,7 @@ const Home = () => {
                   <div className=" ">
                     <div className="  flex flex-col justify-between ">
                       <h2
-                        className="text-lg font-semibold cursor-pointer hover:text-blue-400"
-                        onClick={() => toggleTaskView(project)}
+                        className="text-lg font-semibold cursor-pointer"
                       >
                         {project.title}
                       </h2>
@@ -280,10 +270,16 @@ const Home = () => {
                       <p className="text-gray-500 text-sm mt-1">
                         Deadline: {formatDate(project.deadline)}
                       </p>
+                      <h2
+                        className=" text-blue-400 cursor-pointer hover:underline mt-1 p-2"
+                        onClick={() => toggleTaskView(project)}
+                      >
+                        View it's task
+                      </h2>
                     </div>
                     {decodedUser.memberRole == "ProjectManager" && (
                       <button
-                        className="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded"
+                        className="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 my-3 rounded"
                         onClick={() => openTaskModal(project)}
                       >
                         Add Task
@@ -412,11 +408,13 @@ const Home = () => {
               }
             >
               <option value="">Select Member</option>
-              {members.map((member) => (
-                <option key={member.id} value={member._id}>
-                  {member.email}
-                </option>
-              ))}
+              {members
+                .filter((member) => member.memberRole === "Member")
+                .map((member) => (
+                  <option key={member.id} value={member._id}>
+                    {member.email}
+                  </option>
+                ))}
             </select>
 
             <div className="flex justify-end space-x-2">
