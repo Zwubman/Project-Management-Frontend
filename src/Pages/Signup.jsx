@@ -22,7 +22,7 @@ const Signup = () => {
     } else {
       try {
         const response = await axios.post(
-          "http://localhost:5000/api/auth/sign-up",
+          "https://project-management-backend-fq7q.onrender.com/api/auth/sign-up",
           Data
         );
         console.log(response);

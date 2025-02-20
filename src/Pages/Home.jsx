@@ -42,7 +42,7 @@ const Home = () => {
     try {
       console.log("startign member fetch");
       const response = await axios.get(
-        "http://localhost:5000/api/auth/get-members"
+        "https://project-management-backend-fq7q.onrender.com/api/auth/get-members"
       );
 
       console.log("members: ", response.data);
@@ -59,7 +59,7 @@ const Home = () => {
 
       // Determine the correct API endpoint based on the role
       if (userRole === "ProjectManager") {
-        endpoint = "http://localhost:5000/api/projects/get-pm-project"; // Adjust the endpoint as per your API
+        endpoint = "https://project-management-backend-fq7q.onrender.com/api/projects/get-pm-project"; // Adjust the endpoint as per your API
         const response = await axios.get(endpoint, {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -69,7 +69,7 @@ const Home = () => {
         console.log(response);
         setProjects(response.data.projects); // Assuming your response contains a 'projects' key
       } else if (userRole === "Member") {
-        endpoint = "http://localhost:5000/api/projects/get-memeber-project"; // Adjust the endpoint for members
+        endpoint = "https://project-management-backend-fq7q.onrender.com/api/projects/get-memeber-project"; // Adjust the endpoint for members
         const response = await axios.get(endpoint, {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -89,8 +89,8 @@ const Home = () => {
 
     const endpoint =
       decodedUser.memberRole === "Member"
-        ? `http://localhost:5000/api/tasks/get-my-task/${activeProject._id}`
-        : `http://localhost:5000/api/tasks/get-tasks/${activeProject._id}`;
+        ? `https://project-management-backend-fq7q.onrender.com/api/tasks/get-my-task/${activeProject._id}`
+        : `https://project-management-backend-fq7q.onrender.com/api/tasks/get-tasks/${activeProject._id}`;
 
     try {
       setIsTasksLoading(true);
@@ -162,7 +162,7 @@ const Home = () => {
 
     try {
       const response = await axios.post(
-        `http://localhost:5000/api/tasks/create-task`,
+        `https://project-management-backend-fq7q.onrender.com/api/tasks/create-task`,
         {
           title: newTask.title,
           deadline: newTask.deadline,
@@ -207,7 +207,7 @@ const Home = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/projects/create-project",
+        "https://project-management-backend-fq7q.onrender.com/api/projects/create-project",
         newProjectData,
         {
           headers: {
