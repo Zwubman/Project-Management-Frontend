@@ -5,7 +5,7 @@ import Cookies from "js-cookie";
 
 const Login = () => {
   const [loginData, setLoginData] = useState({ email: "", password: "" });
-  const [errorMessage, setErrorMessage] = useState(""); // State for error message
+  const [errorMessage, setErrorMessage] = useState(""); 
   const history = useNavigate();
 
   // Handle changes in input fields
@@ -16,7 +16,7 @@ const Login = () => {
 
   // Handle form submission
   const handleSubmit = async () => {
-    setErrorMessage(""); // Reset error message before submitting
+    setErrorMessage(""); 
     if (loginData.email === "" || loginData.password === "") {
       setErrorMessage("Email and password are required");
     } else {
@@ -32,10 +32,10 @@ const Login = () => {
           secure: true,
           sameSite: "Strict",
         });
-        history("/home"); // Redirect to home page after successful login
+        history("/home"); 
       } catch (error) {
         console.error("Login failed:", error);
-        setErrorMessage("Login failed. Please check your credentials."); // Set error message
+        setErrorMessage("Login failed. Please check your credentials."); 
       }
     }
   };

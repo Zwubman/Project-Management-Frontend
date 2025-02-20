@@ -21,7 +21,7 @@ function formatDate(dateString) {
 
 // Example usage
 const formattedDate = formatDate("2026-02-25T15:30:00.000Z");
-console.log(formattedDate); // Output: Thursday, February 25, 2026, 03:30 PM
+console.log(formattedDate); 
 
 const Home = () => {
   const [projects, setProjects] = useState([]);
@@ -59,7 +59,7 @@ const Home = () => {
 
       // Determine the correct API endpoint based on the role
       if (userRole === "ProjectManager") {
-        endpoint = "https://project-management-backend-fq7q.onrender.com/api/projects/get-pm-project"; // Adjust the endpoint as per your API
+        endpoint = "https://project-management-backend-fq7q.onrender.com/api/projects/get-pm-project"; 
         const response = await axios.get(endpoint, {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -67,9 +67,9 @@ const Home = () => {
           },
         });
         console.log(response);
-        setProjects(response.data.projects); // Assuming your response contains a 'projects' key
+        setProjects(response.data.projects); 
       } else if (userRole === "Member") {
-        endpoint = "https://project-management-backend-fq7q.onrender.com/api/projects/get-memeber-project"; // Adjust the endpoint for members
+        endpoint = "https://project-management-backend-fq7q.onrender.com/api/projects/get-memeber-project"; 
         const response = await axios.get(endpoint, {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -78,7 +78,7 @@ const Home = () => {
         });
         console.log(response);
 
-        setProjects(response.data.projects); // Assuming your response contains a 'projects' key
+        setProjects(response.data.projects);
       }
     } catch (error) {
       console.error("Error fetching projects:", error);
@@ -217,7 +217,7 @@ const Home = () => {
         }
       );
       console.log(response.data);
-      // Assuming the API returns the newly created project
+     
 
       fetchProjects();
 
@@ -241,7 +241,7 @@ const Home = () => {
           className="bg-red-600 px-2 h-10 rounded-md"
           onClick={() => {
             Cookies.remove("authToken");
-            window.location.href = "/"; // Adjust as needed
+            window.location.href = "/"; 
           }}
         >
           Logout
@@ -371,7 +371,7 @@ const Home = () => {
         </button>
       )}
 
-      {/* Task Modal */}
+      
       {isTaskModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
           <div className="bg-gray-800 p-6 rounded-lg shadow-lg w-96">
@@ -435,7 +435,6 @@ const Home = () => {
         </div>
       )}
 
-      {/* Create Project Modal */}
       {isCreateProjectModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
           <div className="bg-gray-800 p-6 rounded-lg shadow-lg w-96">
