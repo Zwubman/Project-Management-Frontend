@@ -5,6 +5,7 @@ import Cookies from "js-cookie";
 
 const Login = () => {
   const [loginData, setLoginData] = useState({ email: "", password: "" });
+  const [errorMessage, setErrorMessage] = useState(""); // State for error message
   const history = useNavigate();
 
   // Handle changes in input fields
@@ -15,31 +16,32 @@ const Login = () => {
 
   // Handle form submission
   const handleSubmit = async () => {
+    setErrorMessage(""); // Reset error message before submitting
     if (loginData.email === "" || loginData.password === "") {
-      alert("Email and password are required");
+      setErrorMessage("Email and password are required");
     } else {
       try {
         const response = await axios.post(
-          "https://project-management-backend-fq7q.onrender.com/api/auth/sign-in", // Adjust the endpoint as per your backend setup
+          "https://project-management-backend-fq7q.onrender.com/api/auth/sign-in",
           loginData
         );
         console.log(response);
-        // You can store the token or any other data in localStorage/sessionStorage
+        
         Cookies.set("authToken", response.data.accessToken, {
           expires: 7,
           secure: true,
           sameSite: "Strict",
         });
-        history("/home"); // Redirect to the home page after successful login
+        history("/home"); // Redirect to home page after successful login
       } catch (error) {
         console.error("Login failed:", error);
-        alert("Login failed. Please check your credentials.");
+        setErrorMessage("Login failed. Please check your credentials."); // Set error message
       }
     }
   };
 
   return (
-    <div className="h-[98vh] flex items-center justify-center ">
+    <div className="h-[98vh] flex items-center justify-center">
       <div className="p-4 w-2/6 rounded bg-gray-800">
         <div className="text-2xl font-semibold">Signin</div>
         <input
@@ -58,7 +60,10 @@ const Login = () => {
           value={loginData.password}
           onChange={handleChange}
         />
-        <div className="w-full flex items-center justify-between ">
+        {errorMessage && (
+          <div className="bg-red-500 text-white p-2 rounded my-2">{"incorrect email or password"}</div>
+        )}
+        <div className="w-full flex items-center justify-between">
           <button
             className="bg-blue-400 text-xl font-semibold text-black px-3 py-2 rounded"
             onClick={handleSubmit}
